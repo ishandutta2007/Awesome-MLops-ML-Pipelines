@@ -1,0 +1,266 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d"/>
+      <stop offset="50%" stop-color="#0d1527"/>
+      <stop offset="100%" stop-color="#14102c"/>
+    </linearGradient>
+
+    <!-- Animated Glow Radial Gradients -->
+    <radialGradient id="glowCyan" cx="20%" cy="25%" r="45%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#0284c7" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="glowViolet" cx="80%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#7c3aed" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Title Gradient -->
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="45%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <linearGradient id="pillGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.35"/>
+    </linearGradient>
+
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="25%" stop-color="#818cf8"/>
+      <stop offset="50%" stop-color="#c084fc"/>
+      <stop offset="75%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+
+    <!-- Filter for soft text shadow & node glow -->
+    <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .title-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 38px;
+      letter-spacing: -0.5px;
+    }
+    .subtitle-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      fill: #cbd5e1;
+      letter-spacing: 0.2px;
+    }
+    .badge-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      fill: #e2e8f0;
+      letter-spacing: 0.4px;
+    }
+    .node-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      fill: #f1f5f9;
+      text-anchor: middle;
+    }
+    .node-sub {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: 9.5px;
+      fill: #94a3b8;
+      text-anchor: middle;
+    }
+
+    /* Dynamic / Animated CSS */
+    @keyframes flowDashes {
+      0% {
+        stroke-dashoffset: 60;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+    @keyframes pulseAura {
+      0%, 100% {
+        opacity: 0.45;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.85;
+        transform: scale(1.04);
+      }
+    }
+    @keyframes pulseNodeDot {
+      0%, 100% {
+        r: 6px;
+        opacity: 0.9;
+      }
+      50% {
+        r: 8.5px;
+        opacity: 1;
+      }
+    }
+    @keyframes beamFlow {
+      0% {
+        stroke-dashoffset: 200;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .pipeline-wire {
+      stroke: #334155;
+      stroke-width: 2.5;
+      fill: none;
+    }
+    .pipeline-flow {
+      stroke: url(#lineGrad);
+      stroke-width: 2.5;
+      fill: none;
+      stroke-dasharray: 8 6;
+      animation: flowDashes 2.5s linear infinite;
+    }
+    .glow-aura {
+      transform-origin: center;
+      animation: pulseAura 4s ease-in-out infinite alternate;
+    }
+    .pulse-dot {
+      animation: pulseNodeDot 2s ease-in-out infinite;
+    }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="1000" height="320" rx="16" fill="url(#bgGrad)"/>
+  <rect width="1000" height="320" rx="16" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Background Animated Glow Halos -->
+  <circle cx="200" cy="90" r="180" fill="url(#glowCyan)" class="glow-aura" />
+  <circle cx="800" cy="110" r="210" fill="url(#glowViolet)" class="glow-aura" />
+
+  <!-- Background Grid Pattern Accent -->
+  <g opacity="0.08" stroke="#ffffff" stroke-width="1">
+    <line x1="50" y1="0" x2="50" y2="320"/>
+    <line x1="150" y1="0" x2="150" y2="320"/>
+    <line x1="250" y1="0" x2="250" y2="320"/>
+    <line x1="350" y1="0" x2="350" y2="320"/>
+    <line x1="450" y1="0" x2="450" y2="320"/>
+    <line x1="550" y1="0" x2="550" y2="320"/>
+    <line x1="650" y1="0" x2="650" y2="320"/>
+    <line x1="750" y1="0" x2="750" y2="320"/>
+    <line x1="850" y1="0" x2="850" y2="320"/>
+    <line x1="950" y1="0" x2="950" y2="320"/>
+    <line x1="0" y1="50" x2="1000" y2="50"/>
+    <line x1="0" y1="120" x2="1000" y2="120"/>
+    <line x1="0" y1="190" x2="1000" y2="190"/>
+    <line x1="0" y1="260" x2="1000" y2="260"/>
+  </g>
+
+  <!-- FOREGROUND HEADER CONTENT (High contrast, never occluded) -->
+  <g id="header-content">
+    <!-- Top Micro Tag -->
+    <g transform="translate(50, 32)">
+      <rect width="170" height="22" rx="11" fill="#1e293b" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1"/>
+      <circle cx="12" cy="11" r="4" fill="#38bdf8"/>
+      <text x="24" y="15" class="badge-text" fill="#7dd3fc">PRODUCTION MLOPS</text>
+    </g>
+
+    <!-- Main Title -->
+    <text x="50" y="88" fill="url(#titleGrad)" class="title-text" filter="url(#glowFilter)">Awesome MLOps &amp; ML Pipelines</text>
+
+    <!-- Subtitle -->
+    <text x="50" y="122" class="subtitle-text">Curated guide to Pipeline Orchestrators, Experiment Tracking, Model Registries &amp; Multi-Backend Compute</text>
+
+    <!-- Feature Pills -->
+    <g transform="translate(50, 144)">
+      <!-- Pill 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="158" height="26" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="12" y="17" class="badge-text">⚡ Pipeline Orchestration</text>
+      </g>
+      <!-- Pill 2 -->
+      <g transform="translate(168, 0)">
+        <rect width="155" height="26" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="12" y="17" class="badge-text">📊 Experiment Tracking</text>
+      </g>
+      <!-- Pill 3 -->
+      <g transform="translate(333, 0)">
+        <rect width="175" height="26" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="12" y="17" class="badge-text">☸️ Kubernetes &amp; Multi-Cloud</text>
+      </g>
+      <!-- Pill 4 -->
+      <g transform="translate(518, 0)">
+        <rect width="145" height="26" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="12" y="17" class="badge-text">🚀 SaaS &amp; Open Source</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- DYNAMIC PIPELINE ARCHITECTURE TRACK (Separated cleanly below text, Y=210 to Y=295) -->
+  <g id="pipeline-track" transform="translate(0, 10)">
+    <!-- Base track line -->
+    <path d="M 90 236 L 910 236" class="pipeline-wire" />
+    <!-- Dynamic animated flowing dashed line -->
+    <path d="M 90 236 L 910 236" class="pipeline-flow" />
+
+    <!-- Node 1: Data & Feature -->
+    <g transform="translate(90, 236)">
+      <circle cx="0" cy="0" r="16" fill="#0f172a" stroke="#38bdf8" stroke-width="2" filter="url(#nodeGlow)"/>
+      <circle cx="0" cy="0" r="5" fill="#38bdf8" class="pulse-dot"/>
+      <text x="0" y="32" class="node-title">1. Data &amp; Feast</text>
+      <text x="0" y="44" class="node-sub">Version &amp; Ingestion</text>
+    </g>
+
+    <!-- Node 2: Pipeline Orchestration -->
+    <g transform="translate(295, 236)">
+      <circle cx="0" cy="0" r="16" fill="#0f172a" stroke="#818cf8" stroke-width="2" filter="url(#nodeGlow)"/>
+      <circle cx="0" cy="0" r="5" fill="#818cf8" class="pulse-dot"/>
+      <text x="0" y="32" class="node-title">2. Orchestration</text>
+      <text x="0" y="44" class="node-sub">Airflow / Kubeflow / Dagster</text>
+    </g>
+
+    <!-- Node 3: Distributed Training -->
+    <g transform="translate(500, 236)">
+      <circle cx="0" cy="0" r="16" fill="#0f172a" stroke="#c084fc" stroke-width="2" filter="url(#nodeGlow)"/>
+      <circle cx="0" cy="0" r="5" fill="#c084fc" class="pulse-dot"/>
+      <text x="0" y="32" class="node-title">3. Compute &amp; Train</text>
+      <text x="0" y="44" class="node-sub">Ray / SageMaker / GPUs</text>
+    </g>
+
+    <!-- Node 4: Experiment Tracking -->
+    <g transform="translate(705, 236)">
+      <circle cx="0" cy="0" r="16" fill="#0f172a" stroke="#f472b6" stroke-width="2" filter="url(#nodeGlow)"/>
+      <circle cx="0" cy="0" r="5" fill="#f472b6" class="pulse-dot"/>
+      <text x="0" y="32" class="node-title">4. Tracking &amp; Registry</text>
+      <text x="0" y="44" class="node-sub">MLflow / W&amp;B / Lineage</text>
+    </g>
+
+    <!-- Node 5: Serve & Monitor -->
+    <g transform="translate(910, 236)">
+      <circle cx="0" cy="0" r="16" fill="#0f172a" stroke="#34d399" stroke-width="2" filter="url(#nodeGlow)"/>
+      <circle cx="0" cy="0" r="5" fill="#34d399" class="pulse-dot"/>
+      <text x="0" y="32" class="node-title">5. Serve &amp; Monitor</text>
+      <text x="0" y="44" class="node-sub">BentoML / Evidently / Drift</text>
+    </g>
+  </g>
+</svg>
